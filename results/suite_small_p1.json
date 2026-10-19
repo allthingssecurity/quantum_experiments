@@ -1,0 +1,381 @@
+{
+  "1_bhavya": {
+    "meta": {
+      "parks": 12,
+      "slack_qubits": 5,
+      "metric": "benefit",
+      "better": "higher"
+    },
+    "qubits": 17,
+    "qubo_pairs": 136,
+    "classical_exact": {
+      "feasible": true,
+      "benefit": 29,
+      "spend": 17,
+      "budget": 17,
+      "parks_funded": 5,
+      "seconds": 0.174,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 26.81,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 27,
+        "spend": 16,
+        "budget": 17,
+        "parks_funded": 4
+      },
+      "best_raw_gap_pct": 0.04,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 27,
+        "spend": 16,
+        "budget": 17,
+        "parks_funded": 4
+      }
+    },
+    "circuit": {
+      "depth": 730,
+      "two_qubit_gates": 524,
+      "transpile_s": 0.1
+    },
+    "perfect_quantum_computer": {
+      "progress_vs_random_pct": 85.9,
+      "hit_best_pct": 0.004
+    },
+    "angles_source": "tuned on noiseless simulator (this instance)",
+    "angles": [
+      -0.5384,
+      0.8272
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 80.03,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 72.7,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 27,
+        "spend": 17,
+        "budget": 17,
+        "parks_funded": 4
+      },
+      "best_raw_gap_pct": 0.04,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 28,
+        "spend": 17,
+        "budget": 17,
+        "parks_funded": 4
+      },
+      "job_id": "dbb1bgoc77vs7383ihvg",
+      "qpu_seconds": 3,
+      "wall_s": 11.4
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "2_trucks": {
+    "meta": {
+      "trucks": 6,
+      "loads": 6,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 18,
+    "qubo_pairs": 42,
+    "classical_exact": {
+      "feasible": true,
+      "loads_carried": 6,
+      "empty_km": 183.2,
+      "score": 416.8,
+      "seconds": 0.005,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.32,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "loads_carried": 5,
+        "empty_km": 164.3,
+        "score": 335.7
+      },
+      "best_raw_gap_pct": 4.2,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 6,
+        "empty_km": 183.2,
+        "score": 416.8
+      }
+    },
+    "circuit": {
+      "depth": 192,
+      "two_qubit_gates": 196,
+      "transpile_s": 0.0
+    },
+    "perfect_quantum_computer": {
+      "progress_vs_random_pct": 81.5,
+      "hit_best_pct": 0.015
+    },
+    "angles_source": "tuned on noiseless simulator (this instance)",
+    "angles": [
+      -0.5417,
+      0.6261
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 27.51,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 70.8,
+      "best_raw": {
+        "feasible": true,
+        "loads_carried": 6,
+        "empty_km": 187.0,
+        "score": 413.0
+      },
+      "best_raw_gap_pct": 0.2,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 6,
+        "empty_km": 183.2,
+        "score": 416.8
+      },
+      "job_id": "dbb1bkgc77vs7383ii5g",
+      "qpu_seconds": 3,
+      "wall_s": 10.0
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "3_dfc_rakes": {
+    "meta": {
+      "rakes": 6,
+      "requests": 6,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 18,
+    "qubo_pairs": 58,
+    "classical_exact": {
+      "feasible": true,
+      "requests_served": 4,
+      "empty_km": 341.4,
+      "tons": 12700,
+      "score": 928.6,
+      "seconds": 0.005,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.17,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "requests_served": 4,
+        "empty_km": 371.3,
+        "tons": 12700,
+        "score": 898.7
+      },
+      "best_raw_gap_pct": 0.32,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 4,
+        "empty_km": 341.4,
+        "tons": 12700,
+        "score": 928.6
+      }
+    },
+    "circuit": {
+      "depth": 283,
+      "two_qubit_gates": 268,
+      "transpile_s": 0.0
+    },
+    "perfect_quantum_computer": {
+      "progress_vs_random_pct": 90.1,
+      "hit_best_pct": 0.11
+    },
+    "angles_source": "tuned on noiseless simulator (this instance)",
+    "angles": [
+      2.5684,
+      0.5989
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 26.29,
+      "hit_best_pct": 0.049,
+      "progress_vs_random_pct": 77.4,
+      "best_raw": {
+        "feasible": true,
+        "requests_served": 4,
+        "empty_km": 341.4,
+        "tons": 12700,
+        "score": 928.6
+      },
+      "best_raw_gap_pct": -0.0,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 4,
+        "empty_km": 341.4,
+        "tons": 12700,
+        "score": 928.6
+      },
+      "job_id": "dbb1bo8c77vs7383iib0",
+      "qpu_seconds": 3,
+      "wall_s": 10.0
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "4_timetable": {
+    "meta": {
+      "trains": 6,
+      "slots": 3,
+      "metric": "weighted_delay_min",
+      "better": "lower"
+    },
+    "qubits": 18,
+    "qubo_pairs": 28,
+    "classical_exact": {
+      "feasible": true,
+      "conflicts": 0,
+      "weighted_delay_min": 10,
+      "seconds": 0.005,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.05,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 100
+      },
+      "best_raw_gap_pct": 1.86,
+      "best_polished": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 40
+      }
+    },
+    "circuit": {
+      "depth": 124,
+      "two_qubit_gates": 102,
+      "transpile_s": 0.0
+    },
+    "perfect_quantum_computer": {
+      "progress_vs_random_pct": 65.8,
+      "hit_best_pct": 0.025
+    },
+    "angles_source": "tuned on noiseless simulator (this instance)",
+    "angles": [
+      2.7488,
+      0.3735
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 2.32,
+      "hit_best_pct": 0.024,
+      "progress_vs_random_pct": 57.9,
+      "best_raw": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 10
+      },
+      "best_raw_gap_pct": 0.0,
+      "best_polished": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 10
+      },
+      "job_id": "dbb1bs1gv2cc73e7k57g",
+      "qpu_seconds": 3,
+      "wall_s": 10.4
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "5_multimodal": {
+    "meta": {
+      "shipments": 6,
+      "metric": "total_cost",
+      "better": "lower"
+    },
+    "qubits": 18,
+    "qubo_pairs": 78,
+    "classical_exact": {
+      "feasible": true,
+      "total_cost": 80.1,
+      "road": 0,
+      "rail": 4,
+      "rail_road": 2,
+      "seconds": 0.006,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.24,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "total_cost": 80.5,
+        "road": 1,
+        "rail": 3,
+        "rail_road": 2
+      },
+      "best_raw_gap_pct": 0.11,
+      "best_polished": {
+        "feasible": true,
+        "total_cost": 80.1,
+        "road": 0,
+        "rail": 4,
+        "rail_road": 2
+      }
+    },
+    "circuit": {
+      "depth": 373,
+      "two_qubit_gates": 281,
+      "transpile_s": 0.0
+    },
+    "perfect_quantum_computer": {
+      "progress_vs_random_pct": 70.5,
+      "hit_best_pct": 0.039
+    },
+    "angles_source": "tuned on noiseless simulator (this instance)",
+    "angles": [
+      2.7321,
+      0.4166
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 3.86,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 51.2,
+      "best_raw": {
+        "feasible": true,
+        "total_cost": 82.2,
+        "road": 1,
+        "rail": 3,
+        "rail_road": 2
+      },
+      "best_raw_gap_pct": 0.6,
+      "best_polished": {
+        "feasible": true,
+        "total_cost": 82.2,
+        "road": 1,
+        "rail": 3,
+        "rail_road": 2
+      },
+      "job_id": "dbb1bvgc77vs7383iimg",
+      "qpu_seconds": 3,
+      "wall_s": 9.7
+    },
+    "backend": "ibm_marrakesh"
+  }
+}

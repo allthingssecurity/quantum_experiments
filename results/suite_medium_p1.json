@@ -1,0 +1,222 @@
+{
+  "1_bhavya": {
+    "meta": {
+      "parks": 20,
+      "slack_qubits": 5,
+      "metric": "benefit",
+      "better": "higher"
+    },
+    "qubits": 25,
+    "qubo_pairs": 300,
+    "classical_exact": {
+      "feasible": true,
+      "benefit": 49,
+      "spend": 30,
+      "budget": 30,
+      "parks_funded": 8,
+      "seconds": 60.014,
+      "proven_optimal": false
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 21.8,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 44,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 9
+      },
+      "best_raw_gap_pct": 0.07,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 44,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 9
+      }
+    },
+    "circuit": {
+      "depth": 977,
+      "two_qubit_gates": 1369,
+      "transpile_s": 0.1
+    },
+    "angles_source": "transferred from the small instance of the same use case",
+    "angles": [
+      -0.5384,
+      0.8272
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 32.79,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 39.9,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 44,
+        "spend": 29,
+        "budget": 30,
+        "parks_funded": 9
+      },
+      "best_raw_gap_pct": 0.07,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 45,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 10
+      },
+      "job_id": "dbb1cj7i0auc7392pedg",
+      "qpu_seconds": 3,
+      "wall_s": 33.2
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "2_trucks": {
+    "meta": {
+      "trucks": 15,
+      "loads": 15,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 45,
+    "qubo_pairs": 96,
+    "classical_exact": {
+      "feasible": true,
+      "loads_carried": 15,
+      "empty_km": 210.0,
+      "score": 1290.0,
+      "seconds": 0.006,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "loads_carried": 15,
+        "empty_km": 247.1,
+        "score": 1252.9
+      },
+      "best_raw_gap_pct": 24.62,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 14,
+        "empty_km": 185.1,
+        "score": 1214.9
+      }
+    },
+    "circuit": {
+      "depth": 237,
+      "two_qubit_gates": 456,
+      "transpile_s": 0.0
+    },
+    "angles_source": "transferred from the small instance of the same use case",
+    "angles": [
+      -0.5417,
+      0.6261
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.46,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 56.9,
+      "best_raw": {
+        "feasible": true,
+        "loads_carried": 11,
+        "empty_km": 183.7,
+        "score": 916.3
+      },
+      "best_raw_gap_pct": 8.87,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 14,
+        "empty_km": 204.0,
+        "score": 1196.0
+      },
+      "job_id": "dbb1crc24mrc73865n90",
+      "qpu_seconds": 3,
+      "wall_s": 58.7
+    },
+    "backend": "ibm_marrakesh"
+  },
+  "3_dfc_rakes": {
+    "meta": {
+      "rakes": 12,
+      "requests": 12,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 36,
+    "qubo_pairs": 135,
+    "classical_exact": {
+      "feasible": true,
+      "requests_served": 6,
+      "empty_km": 81.9,
+      "tons": 18800,
+      "score": 1798.1,
+      "seconds": 0.004,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "requests_served": 10,
+        "empty_km": 288.3,
+        "tons": 30400,
+        "score": 2751.7
+      },
+      "best_raw_gap_pct": 12.21,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 6,
+        "empty_km": 83.2,
+        "tons": 18800,
+        "score": 1796.8
+      }
+    },
+    "circuit": {
+      "depth": 471,
+      "two_qubit_gates": 691,
+      "transpile_s": 0.0
+    },
+    "angles_source": "transferred from the small instance of the same use case",
+    "angles": [
+      2.5684,
+      0.5989
+    ],
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.07,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 56.0,
+      "best_raw": {
+        "feasible": true,
+        "requests_served": 5,
+        "empty_km": 251.8,
+        "tons": 15800,
+        "score": 1328.2
+      },
+      "best_raw_gap_pct": 2.17,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 6,
+        "empty_km": 100.4,
+        "tons": 18800,
+        "score": 1779.6
+      },
+      "job_id": "dbb1d9oc77vs7383ikhg",
+      "qpu_seconds": 3,
+      "wall_s": 263.5
+    },
+    "backend": "ibm_marrakesh"
+  }
+}

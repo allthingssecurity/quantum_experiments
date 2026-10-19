@@ -1,0 +1,98 @@
+{
+  "tiny": {
+    "size": {
+      "parks": 4,
+      "qubo_switches": 11,
+      "qubo_pairs": 55,
+      "lagrange": 0.36
+    },
+    "classical_exact": {
+      "value": 18,
+      "seconds": 0.0055,
+      "proven_optimal": true,
+      "funded": 3
+    },
+    "annealer": {
+      "wall_seconds": 0.093,
+      "reads": 1000,
+      "best_raw": 18,
+      "best_repaired": 18,
+      "feasible_pct": 100.0,
+      "best_sample_parks": [
+        "B",
+        "C",
+        "D"
+      ]
+    }
+  },
+  "bhavya": {
+    "size": {
+      "parks": 100,
+      "qubo_switches": 110,
+      "qubo_pairs": 5995,
+      "lagrange": 2.7
+    },
+    "classical_exact": {
+      "value": 1012,
+      "seconds": 60.0029,
+      "proven_optimal": false,
+      "funded": 31
+    },
+    "annealer": {
+      "wall_seconds": 4.013,
+      "reads": 1000,
+      "best_raw": 845,
+      "best_repaired": 867,
+      "feasible_pct": 99.0
+    },
+    "embedding_check": {
+      "Advantage (Pegasus P16)": {
+        "fits": true,
+        "physical_qubits": 1388,
+        "max_chain": 17,
+        "embed_seconds": 35.3
+      },
+      "Advantage2 (Zephyr Z12)": {
+        "fits": true,
+        "physical_qubits": 1432,
+        "max_chain": 21,
+        "embed_seconds": 50.3
+      }
+    }
+  },
+  "trucks": {
+    "size": {
+      "trucks": 20,
+      "loads": 20,
+      "qubo_switches": 86,
+      "qubo_pairs": 326
+    },
+    "classical_exact": {
+      "loads": 18,
+      "empty_km": 403.3,
+      "seconds": 0.0032,
+      "proven_optimal": true
+    },
+    "annealer": {
+      "wall_seconds": 0.861,
+      "reads": 1000,
+      "best_loads": 18,
+      "best_empty_km": 411.5,
+      "feasible_pct": 100.0
+    },
+    "embedding_check": {
+      "Advantage (Pegasus P16)": {
+        "fits": true,
+        "physical_qubits": 189,
+        "max_chain": 4,
+        "embed_seconds": 0.5
+      },
+      "Advantage2 (Zephyr Z12)": {
+        "fits": true,
+        "physical_qubits": 159,
+        "max_chain": 3,
+        "embed_seconds": 0.6
+      }
+    }
+  }
+}

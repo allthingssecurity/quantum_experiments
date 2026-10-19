@@ -1,0 +1,52 @@
+{
+  "mode": "qpu",
+  "backend": "ibm_marrakesh",
+  "reps": 2,
+  "problems": {
+    "parks4": {
+      "qubits": 4,
+      "qubo_pairs": 6,
+      "known_best": "fund A+B+C+D",
+      "circuit_depth_on_chip": 118,
+      "two_qubit_gates_on_chip": 33,
+      "angle_tuning_s": 0.5,
+      "perfect_qc_p_best": 0.8414,
+      "wall_seconds": 8.3,
+      "shots": 4096,
+      "p_best_answer": 0.5825,
+      "random_guess_p": 0.0625,
+      "most_frequent": "fund A+B+C+D",
+      "most_frequent_p": 0.5825,
+      "best_answer_found": "fund A+B+C+D",
+      "best_answer_real": [
+        26,
+        false
+      ],
+      "job_id": "dbb13bvi0auc7392oqs0",
+      "qpu_seconds": 3
+    },
+    "trucks3": {
+      "qubits": 9,
+      "qubo_pairs": 18,
+      "known_best": "T1->A, T2->B, T3->C",
+      "circuit_depth_on_chip": 290,
+      "two_qubit_gates_on_chip": 153,
+      "angle_tuning_s": 1.7,
+      "perfect_qc_p_best": 0.0157,
+      "wall_seconds": 8.2,
+      "shots": 4096,
+      "p_best_answer": 0.0105,
+      "random_guess_p": 0.002,
+      "most_frequent": "T3->C",
+      "most_frequent_p": 0.0325,
+      "best_answer_found": "T1->A, T2->B, T3->C",
+      "best_answer_real": [
+        3,
+        30,
+        true
+      ],
+      "job_id": "dbb13e9gv2cc73e7jjog",
+      "qpu_seconds": 3
+    }
+  }
+}

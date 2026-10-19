@@ -1,0 +1,29 @@
+{
+  "mode": "qpu",
+  "backend": "ibm_marrakesh",
+  "reps": 2,
+  "problems": {
+    "parks4": {
+      "qubits": 4,
+      "qubo_pairs": 6,
+      "known_best": "fund B+C+D",
+      "circuit_depth_on_chip": 126,
+      "two_qubit_gates_on_chip": 42,
+      "angle_tuning_s": 0.4,
+      "perfect_qc_p_best": 0.2535,
+      "wall_seconds": 8.6,
+      "shots": 4096,
+      "p_best_answer": 0.2258,
+      "random_guess_p": 0.0625,
+      "most_frequent": "fund B+C+D",
+      "most_frequent_p": 0.2258,
+      "best_answer_found": "fund B+C+D",
+      "best_answer_real": [
+        18,
+        true
+      ],
+      "job_id": "dbb144hgv2cc73e7jld0",
+      "qpu_seconds": 3
+    }
+  }
+}

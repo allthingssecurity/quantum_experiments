@@ -1,0 +1,42 @@
+{
+  "bhavya_qubo_1s": {
+    "value": 934,
+    "feasible": true,
+    "repaired": 934,
+    "wall_seconds": 2.25,
+    "solver_seconds": 1.047
+  },
+  "bhavya_native_1s": {
+    "value": 1007,
+    "feasible": true,
+    "wall_seconds": 1.88,
+    "solver_seconds": 1.016
+  },
+  "trucks_1s": {
+    "loads": 18,
+    "empty_km": 403.3,
+    "feasible": true,
+    "wall_seconds": 1.8,
+    "solver_seconds": 1.036
+  },
+  "bhavya_qubo_10s": {
+    "value": 989,
+    "feasible": true,
+    "repaired": 989,
+    "wall_seconds": 11.25,
+    "solver_seconds": 10.021
+  },
+  "bhavya_native_10s": {
+    "value": 1010,
+    "feasible": true,
+    "wall_seconds": 10.82,
+    "solver_seconds": 10.003
+  },
+  "trucks_10s": {
+    "loads": 18,
+    "empty_km": 403.3,
+    "feasible": true,
+    "wall_seconds": 12.7,
+    "solver_seconds": 10.0
+  }
+}

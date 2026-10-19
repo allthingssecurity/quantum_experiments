@@ -1,0 +1,371 @@
+{
+  "1_bhavya": {
+    "meta": {
+      "parks": 20,
+      "slack_qubits": 5,
+      "metric": "benefit",
+      "better": "higher"
+    },
+    "qubits": 25,
+    "qubo_pairs": 300,
+    "classical_exact": {
+      "feasible": true,
+      "benefit": 49,
+      "spend": 30,
+      "budget": 30,
+      "parks_funded": 8,
+      "seconds": 60.007,
+      "proven_optimal": false
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 21.8,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 44,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 9
+      },
+      "best_raw_gap_pct": 0.07,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 44,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 9
+      }
+    },
+    "circuit": {
+      "depth": 977,
+      "two_qubit_gates": 1369,
+      "transpile_s": 0.1
+    },
+    "sweep": {
+      "job_id": "dbb173424mrc73865cb0",
+      "best_gamma": 0.3,
+      "best_beta": 0.2,
+      "best_mean_energy": 3471.3,
+      "random_mean_energy": 6890.53,
+      "qpu_seconds": 5
+    },
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 42.58,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 45.5,
+      "best_raw": {
+        "feasible": true,
+        "benefit": 47,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 8
+      },
+      "best_raw_gap_pct": 0.03,
+      "best_polished": {
+        "feasible": true,
+        "benefit": 47,
+        "spend": 30,
+        "budget": 30,
+        "parks_funded": 8
+      },
+      "job_id": "dbb1761gv2cc73e7jrp0",
+      "qpu_seconds": 3,
+      "wall_s": 23.7
+    }
+  },
+  "2_trucks": {
+    "meta": {
+      "trucks": 15,
+      "loads": 15,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 45,
+    "qubo_pairs": 96,
+    "classical_exact": {
+      "feasible": true,
+      "loads_carried": 15,
+      "empty_km": 210.0,
+      "score": 1290.0,
+      "seconds": 0.007,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "loads_carried": 15,
+        "empty_km": 247.1,
+        "score": 1252.9
+      },
+      "best_raw_gap_pct": 24.62,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 14,
+        "empty_km": 185.1,
+        "score": 1214.9
+      }
+    },
+    "circuit": {
+      "depth": 237,
+      "two_qubit_gates": 456,
+      "transpile_s": 0.0
+    },
+    "sweep": {
+      "job_id": "dbb178gc77vs7383i9o0",
+      "best_gamma": 0.15,
+      "best_beta": 0.2,
+      "best_mean_energy": 2961.02,
+      "random_mean_energy": 2922.41,
+      "qpu_seconds": 5
+    },
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": -2.2,
+      "best_raw": {
+        "feasible": false,
+        "loads_carried": 14,
+        "empty_km": 215.0,
+        "score": 1185.0
+      },
+      "best_raw_gap_pct": 21.48,
+      "best_polished": {
+        "feasible": true,
+        "loads_carried": 15,
+        "empty_km": 264.5,
+        "score": 1235.5
+      },
+      "job_id": "dbb17bpgv2cc73e7js4g",
+      "qpu_seconds": 3,
+      "wall_s": 22.1
+    }
+  },
+  "3_dfc_rakes": {
+    "meta": {
+      "rakes": 12,
+      "requests": 12,
+      "metric": "score",
+      "better": "higher"
+    },
+    "qubits": 36,
+    "qubo_pairs": 135,
+    "classical_exact": {
+      "feasible": true,
+      "requests_served": 6,
+      "empty_km": 81.9,
+      "tons": 18800,
+      "score": 1798.1,
+      "seconds": 0.006,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "requests_served": 10,
+        "empty_km": 288.3,
+        "tons": 30400,
+        "score": 2751.7
+      },
+      "best_raw_gap_pct": 12.21,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 6,
+        "empty_km": 83.2,
+        "tons": 18800,
+        "score": 1796.8
+      }
+    },
+    "circuit": {
+      "depth": 471,
+      "two_qubit_gates": 691,
+      "transpile_s": 0.0
+    },
+    "sweep": {
+      "job_id": "dbb17e8c77vs7383ia7g",
+      "best_gamma": 0.15,
+      "best_beta": 0.2,
+      "best_mean_energy": 17298.41,
+      "random_mean_energy": 19884.33,
+      "qpu_seconds": 5
+    },
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 10.9,
+      "best_raw": {
+        "feasible": false,
+        "requests_served": 8,
+        "empty_km": 167.8,
+        "tons": 24900,
+        "score": 2322.2
+      },
+      "best_raw_gap_pct": 7.54,
+      "best_polished": {
+        "feasible": true,
+        "requests_served": 6,
+        "empty_km": 99.8,
+        "tons": 18800,
+        "score": 1780.2
+      },
+      "job_id": "dbb17hk24mrc73865dfg",
+      "qpu_seconds": 3,
+      "wall_s": 23.5
+    }
+  },
+  "4_timetable": {
+    "meta": {
+      "trains": 12,
+      "slots": 3,
+      "metric": "weighted_delay_min",
+      "better": "lower"
+    },
+    "qubits": 36,
+    "qubo_pairs": 56,
+    "classical_exact": {
+      "feasible": true,
+      "conflicts": 0,
+      "weighted_delay_min": 30,
+      "seconds": 0.007,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "conflicts": null,
+        "weighted_delay_min": 160
+      },
+      "best_raw_gap_pct": 15.16,
+      "best_polished": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 80
+      }
+    },
+    "circuit": {
+      "depth": 113,
+      "two_qubit_gates": 201,
+      "transpile_s": 8.3
+    },
+    "sweep": {
+      "job_id": "dbb17mfi0auc7392p510",
+      "best_gamma": 1.2,
+      "best_beta": 0.2,
+      "best_mean_energy": 1032.2,
+      "random_mean_energy": 946.21,
+      "qpu_seconds": 5
+    },
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": -9.0,
+      "best_raw": {
+        "feasible": false,
+        "conflicts": null,
+        "weighted_delay_min": 120
+      },
+      "best_raw_gap_pct": 42.73,
+      "best_polished": {
+        "feasible": true,
+        "conflicts": 0,
+        "weighted_delay_min": 60
+      },
+      "job_id": "dbb17p8c77vs7383ib10",
+      "qpu_seconds": 3,
+      "wall_s": 21.8
+    }
+  },
+  "5_multimodal": {
+    "meta": {
+      "shipments": 12,
+      "metric": "total_cost",
+      "better": "lower"
+    },
+    "qubits": 36,
+    "qubo_pairs": 300,
+    "classical_exact": {
+      "feasible": true,
+      "total_cost": 207.5,
+      "road": 5,
+      "rail": 7,
+      "rail_road": 0,
+      "seconds": 0.052,
+      "proven_optimal": true
+    },
+    "random_guess": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 0.0,
+      "best_raw": {
+        "feasible": false,
+        "total_cost": 247.8,
+        "road": 4,
+        "rail": 5,
+        "rail_road": 3
+      },
+      "best_raw_gap_pct": 13.12,
+      "best_polished": {
+        "feasible": true,
+        "total_cost": 215.3,
+        "road": 3,
+        "rail": 6,
+        "rail_road": 3
+      }
+    },
+    "circuit": {
+      "depth": 1241,
+      "two_qubit_gates": 1327,
+      "transpile_s": 0.1
+    },
+    "sweep": {
+      "job_id": "dbb17rs24mrc73865e8g",
+      "best_gamma": 1.2,
+      "best_beta": 0.2,
+      "best_mean_energy": 1022.7,
+      "random_mean_energy": 1106.57,
+      "qpu_seconds": 5
+    },
+    "qpu": {
+      "samples": 4096,
+      "feasible_pct": 0.0,
+      "hit_best_pct": 0.0,
+      "progress_vs_random_pct": 9.6,
+      "best_raw": {
+        "feasible": false,
+        "total_cost": 253.5,
+        "road": 4,
+        "rail": 5,
+        "rail_road": 3
+      },
+      "best_raw_gap_pct": 17.17,
+      "best_polished": {
+        "feasible": true,
+        "total_cost": 214.4,
+        "road": 4,
+        "rail": 5,
+        "rail_road": 3
+      },
+      "job_id": "dbb17upgv2cc73e7jthg",
+      "qpu_seconds": 3,
+      "wall_s": 23.1
+    }
+  }
+}
