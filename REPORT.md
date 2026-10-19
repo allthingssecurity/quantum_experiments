@@ -11,11 +11,11 @@ We took five planning problems from Indian freight and industrial-corridor work,
 
 Short version: classical computing wins on every measure, at every size we tried.
 
-1. Answer quality. At 17 to 18 qubits both classical methods found the best answer to all five problems. The quantum computer found it for two (rakes and timetabling) and came within 1% to 7% on the other three. At 25 to 45 qubits the classical methods still found the best answers, while the quantum computer's best answers were 10% to 29% worse.
-2. Valid answers. Nearly all classical sampler answers were valid (97% to 100%). On the quantum computer the share was 2% to 80% at small size and under 1% to 33% at medium size.
-3. Time. The exact solver needed well under a second for everything except park funding, where it found the best answer at once but could not prove it within 60 seconds. The classical sampler took 0.4 to 1.8 seconds on a laptop. Each quantum job used about 3 seconds of quantum time, plus queue waits that ran from a few seconds to over an hour on IBM's free plan.
+1. Answer quality. At 17 to 18 qubits both classical methods found the best answer to all five problems. The quantum computer found it for two (rakes and timetabling) and came within 1% to 7% on the other three. At 25 to 45 qubits the classical methods still found the best answers or came within 0.5%, while the quantum computer's best answers were 8% to 29% worse, and six times worse on timetabling. At 90 to 120 qubits the quantum computer returned no valid answer at all.
+2. Valid answers. Nearly all classical sampler answers were valid (95% to 100%, with one exception noted at large size). On the quantum computer the share was 2% to 80% at small size, 0.02% to 33% at medium size, and zero at large size.
+3. Time. The exact solver needed well under a second for almost everything; the exceptions were park funding and large multimodal routing, where it found a good answer at once but could not prove it optimal within 60 seconds. The classical sampler took 0.4 to 5 seconds on a laptop. Each quantum job used about 3 seconds of quantum time, plus queue waits that ran from a few seconds to over an hour on IBM's free plan.
 4. The quantum computer is doing real work, just not enough. It is far better than random guessing (it moves its answers 51% to 77% of the way from random toward the best answer at small size), and it gets 73% to 88% of what a perfect noise-free quantum computer would get with the same circuit. This is the part that shows the hardware works; it is not the part that would justify using it.
-5. The large runs (90 to 120 qubits) were still in IBM's queue when this was written. The medium results already show the trend: as circuits pass about 500 two-qubit gates, the quantum answers fall further behind.
+5. The trend with size is clear. As circuits pass a few hundred two-qubit gates, the quantum answers fall further behind, and at around 100 qubits none of them are valid.
 6. We made one mistake on the way that is worth knowing about. Our first full run picked the circuit settings by a coarse sweep on the hardware, and those settings turned out to be no better than random even on a perfect, noise-free simulator. The results looked like "hardware is just noise", which was wrong. Tuning the settings on a classical simulator first fixed it.
 
 None of this is surprising. Problems of 20 to 50 switches are easy for classical computers, and current quantum hardware is noisy. The point of the exercise was to see how far real hardware gets today, where it stops, and to have the problem formulations and code ready for better machines.
@@ -160,27 +160,53 @@ Quantum against classical:
 
 | Use case | Exact classical answer (time) | Classical sampler best (time) | Quantum best | Valid answers: classical / quantum | Hits the best answer: classical / quantum |
 |---|---|---|---|---|---|
-| Park funding | 49 (60 s, not proven) | 49 (1.37 s) | 44 | 99.73% / 32.79% | 0.07% / 0.0% |
-| Truck backhaul | 1290 (0.006 s) | 1290 (1.83 s) | 916.3 | 100.0% / 0.46% | 0.76% / 0.0% |
-| DFC rakes | 1798.1 (0.004 s) | 1798.1 (1.52 s) | 1328.2 | 99.83% / 0.07% | 0.12% / 0.0% |
+| Park funding | 49 (60 s, not proven) | 49 (1.34 s) | 44 | 99.73% / 32.79% | 0.07% / 0.0% |
+| Truck backhaul | 1290 (0.006 s) | 1290 (1.84 s) | 916.3 | 100.0% / 0.46% | 0.76% / 0.0% |
+| DFC rakes | 1798.1 (0.004 s) | 1798.1 (1.53 s) | 1328.2 | 99.83% / 0.07% | 0.12% / 0.0% |
+| Timetabling | 30 (0.016 s) | 30 (1.1 s) | 180 | 94.73% / 0.07% | 0.1% / 0.0% |
+| Multimodal routing | 207.5 (0.047 s) | 208.5 (0.85 s) | 223.4 | 100.0% / 0.02% | 0.0% / 0.0% |
 
-Against random guessing and a perfect quantum computer:
+Against random guessing:
 
 | Use case | Qubits | 2-qubit gates | Progress, perfect QC | Progress, IBM | Valid answers, random | Valid answers, IBM | Best IBM answer | Best possible |
 |---|---|---|---|---|---|---|---|---|
 | Park funding | 25 | 1369 | n/a | 39.9% | 21.8% | 32.79% | 44 | 49 (not proven) |
 | Truck backhaul | 45 | 456 | n/a | 56.9% | 0.0% | 0.46% | 916.3 | 1290 |
 | DFC rakes | 36 | 691 | n/a | 56.0% | 0.0% | 0.07% | 1328.2 | 1798.1 |
+| Timetabling | 36 | 201 | n/a | 59.3% | 0.0% | 0.07% | 180 | 30 |
+| Multimodal routing | 36 | 1327 | n/a | 46.7% | 0.0% | 0.02% | 223.4 | 207.5 |
 
-The gap to classical is now large. The classical sampler still found the best answer for all three problems in under 2 seconds, with nearly every sample valid. The quantum circuit settings here were not tuned for these instances; they were copied from the small versions. The hardware still beats random guessing on average (40% to 57% progress), but valid answers become rare and the best valid answer is clearly worse than the true optimum: 916 against 1,290 for trucks, and 1,328 against 1,798 for rakes. Park funding suffers most, since 1,369 two-qubit gates is a lot of noise for 25 qubits.
+The gap to classical is now large. The classical sampler found the best answer, or came within 0.5% of it, on all five problems in under 2 seconds, with 95% to 100% of its samples valid. The quantum computer's best answers were 8% to 29% worse on four problems, and on timetabling its best valid timetable had six times the delay of the best one (180 minutes against 30). Valid answers fell to between 0.02% and 33% of samples.
 
-The timetabling and multimodal runs at this size were moved to `ibm_kingston` (same processor family, also 156 qubits) after waiting too long in the Marrakesh queue. They were still queued when this was written.
+The quantum circuit settings here were not tuned for these instances; they were copied from the small versions, because circuits this size cannot be simulated on a laptop. The hardware still moves its average answer 40% to 59% of the way from random toward the best, so it is not just producing noise. Park funding suffers most from noise, since 1,369 two-qubit gates is a lot for 25 qubits.
+
+Park funding, trucks and rakes ran on `ibm_marrakesh`. Timetabling and multimodal routing ran on `ibm_kingston` (same processor family, also 156 qubits) after the Marrakesh queue grew long. The first multimodal job on Kingston failed with an IBM internal error (code 9705) and was resubmitted.
 
 ### Large size (90 to 120 qubits)
 
-These runs were submitted but were still waiting in IBM's free-tier queue when this version of the report was written. On October 19 both available machines had a queue of 8 or more jobs, and free-plan jobs run after paid ones. The large circuits need between 731 and 3,182 two-qubit gates (from a dry run that compiles the circuits without running them), so based on the medium results we expect them to sit close to random guessing. This section will be updated when the jobs finish.
+Quantum against classical:
 
-One size was left out on purpose: park funding at 30 parks (36 qubits) compiles to about 3,500 two-qubit gates, and there is no realistic chance of a useful result at that depth on current hardware.
+| Use case | Exact classical answer (time) | Classical sampler best (time) | Quantum best | Valid answers: classical / quantum | Hits the best answer: classical / quantum |
+|---|---|---|---|---|---|
+| Truck backhaul | 3349.2 (0.01 s) | 3335.9 (4.77 s) | infeasible | 100.0% / 0.0% | 0.0% / 0.0% |
+| DFC rakes | 3228.6 (0.01 s) | 3226.5 (3.79 s) | infeasible | 99.95% / 0.0% | 0.0% / 0.0% |
+| Timetabling | 140 (0.008 s) | 220 (3.33 s) | infeasible | 42.21% / 0.0% | 0.0% / 0.0% |
+| Multimodal routing | 642.3 (60 s, not proven) | 662.6 (2.74 s) | infeasible | 100.0% / 0.0% | 0.0% / 0.0% |
+
+Against random guessing:
+
+| Use case | Qubits | 2-qubit gates | Progress, perfect QC | Progress, IBM | Valid answers, random | Valid answers, IBM | Best IBM answer | Best possible |
+|---|---|---|---|---|---|---|---|---|
+| Truck backhaul | 120 | 1649 | n/a | 58.0% | 0.0% | 0.0% | infeasible | 3349.2 |
+| DFC rakes | 90 | 3184 | n/a | 47.1% | 0.0% | 0.0% | infeasible | 3228.6 |
+| Timetabling | 105 | 731 | n/a | 58.0% | 0.0% | 0.0% | infeasible | 140 |
+| Multimodal routing | 90 | 7036 | n/a | 28.8% | 0.0% | 0.0% | infeasible | 642.3 (not proven) |
+
+At this size the quantum computer did not return a single valid answer in 4,096 samples on any of the four problems. Every sample broke at least one rule. Its average answer was still better than random guessing (29% to 58% of the way toward the best), so the circuit is still pushing in the right direction, but it never gets all the way to an answer that could be used.
+
+The classical side had no trouble. The exact solver needed about a hundredth of a second for trucks, rakes and timetabling. On multimodal routing it found an answer of 642.3 but could not prove it optimal within 60 seconds. The classical sampler came within 0.4% on trucks, 0.1% on rakes and 3.2% on multimodal routing. Timetabling was the one case where the plain sampler struggled too (best 220 minutes of delay against 140, with 42% of samples valid), which shows that a simple sampler with default settings is not the strongest classical method. The exact solver still handled it instantly.
+
+All four large runs were on `ibm_kingston`. Park funding was left out at this size: 30 parks (36 qubits, fully connected) compiles to about 3,500 two-qubit gates, and the medium result already showed what happens at a third of that.
 
 ### The first attempt, and why it looked wrong
 
@@ -214,7 +240,7 @@ What would help next, roughly in order of expected payoff:
 
 The IBM free plan gives 10 minutes of quantum time per 28 days. Every job in this report took about 3 seconds of quantum time. Waiting time was much longer, mostly spent in IBM's public queue.
 
-As of October 19, 2026 the account had used 132 seconds of the 600 available, including the first grid-sweep attempt.
+In total the account used 153 seconds of the 600 available, including the first grid-sweep attempt and one job that failed on IBM's side. The longest single queue wait was over an hour.
 
 IBM job ids, for anyone who wants to look up the raw data:
 
@@ -228,6 +254,12 @@ IBM job ids, for anyone who wants to look up the raw data:
 | medium | Park funding | dbb1cj7i0auc7392pedg |
 | medium | Truck backhaul | dbb1crc24mrc73865n90 |
 | medium | DFC rakes | dbb1d9oc77vs7383ikhg |
+| medium | Timetabling | dbb1n7vi0auc7392puk0 |
+| medium | Multimodal routing | dbb3la8c77vs7383luqg |
+| large | Truck backhaul | dbb3h9424mrc73868t0g |
+| large | DFC rakes | dbb3ipfi0auc7392spfg |
+| large | Timetabling | dbb3j5pgv2cc73e7ne6g |
+| large | Multimodal routing | dbb3jpni0auc7392sqkg |
 | warm-up | 4 parks | dbb144hgv2cc73e7jld0 |
 | warm-up | 3 trucks | dbb13e9gv2cc73e7jjog |
 
