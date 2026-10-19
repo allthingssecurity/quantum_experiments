@@ -1,0 +1,102 @@
+{
+  "small/1_bhavya": {
+    "samples": 4096,
+    "seconds": 0.82,
+    "feasible_pct": 99.37,
+    "hit_best_pct": 0.37,
+    "best": {
+      "feasible": true,
+      "benefit": 29,
+      "spend": 17,
+      "budget": 17,
+      "parks_funded": 5
+    }
+  },
+  "small/2_trucks": {
+    "samples": 4096,
+    "seconds": 0.73,
+    "feasible_pct": 100.0,
+    "hit_best_pct": 9.42,
+    "best": {
+      "feasible": true,
+      "loads_carried": 6,
+      "empty_km": 183.2,
+      "score": 416.8
+    }
+  },
+  "small/3_dfc_rakes": {
+    "samples": 4096,
+    "seconds": 0.74,
+    "feasible_pct": 100.0,
+    "hit_best_pct": 14.92,
+    "best": {
+      "feasible": true,
+      "requests_served": 4,
+      "empty_km": 341.4,
+      "tons": 12700,
+      "score": 928.6
+    }
+  },
+  "small/4_timetable": {
+    "samples": 4096,
+    "seconds": 0.55,
+    "feasible_pct": 97.02,
+    "hit_best_pct": 1.2,
+    "best": {
+      "feasible": true,
+      "conflicts": 0,
+      "weighted_delay_min": 10
+    }
+  },
+  "small/5_multimodal": {
+    "samples": 4096,
+    "seconds": 0.4,
+    "feasible_pct": 100.0,
+    "hit_best_pct": 1.59,
+    "best": {
+      "feasible": true,
+      "total_cost": 80.1,
+      "road": 1,
+      "rail": 4,
+      "rail_road": 1
+    }
+  },
+  "medium/1_bhavya": {
+    "samples": 4096,
+    "seconds": 1.37,
+    "feasible_pct": 99.73,
+    "hit_best_pct": 0.07,
+    "best": {
+      "feasible": true,
+      "benefit": 49,
+      "spend": 30,
+      "budget": 30,
+      "parks_funded": 8
+    }
+  },
+  "medium/2_trucks": {
+    "samples": 4096,
+    "seconds": 1.83,
+    "feasible_pct": 100.0,
+    "hit_best_pct": 0.76,
+    "best": {
+      "feasible": true,
+      "loads_carried": 15,
+      "empty_km": 210.0,
+      "score": 1290.0
+    }
+  },
+  "medium/3_dfc_rakes": {
+    "samples": 4096,
+    "seconds": 1.52,
+    "feasible_pct": 99.83,
+    "hit_best_pct": 0.12,
+    "best": {
+      "feasible": true,
+      "requests_served": 6,
+      "empty_km": 81.9,
+      "tons": 18800,
+      "score": 1798.1
+    }
+  }
+}

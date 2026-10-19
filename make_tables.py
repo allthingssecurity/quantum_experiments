@@ -33,6 +33,30 @@ def table(size):
     return "\n".join(rows) + "\n"
 
 
+def compare_table(size):
+    """Quantum vs classical on the same QUBO, same number of samples."""
+    path = os.path.join(HERE, "results", f"suite_{size}_p1.json")
+    cpath = os.path.join(HERE, "results", "classical_compare.json")
+    if not os.path.exists(path):
+        return f"(no results for {size})\n"
+    d = json.load(open(path))
+    c = json.load(open(cpath)) if os.path.exists(cpath) else {}
+    rows = ["| Use case | Exact classical answer (time) | Classical sampler best (time) | Quantum best | Valid answers: classical / quantum | Hits the best answer: classical / quantum |",
+            "|---|---|---|---|---|---|"]
+    for k, r in d.items():
+        m = r["meta"]["metric"]
+        ex, q = r["classical_exact"], r["qpu"]
+        sa = c.get(f"{size}/{k}")
+        proven = "" if ex.get("proven_optimal") else ", not proven"
+        rows.append("| {} | {} ({:.2g} s{}) | {} | {} | {} | {} |".format(
+            NAMES[k], fmt(ex, m), ex["seconds"], proven,
+            f"{fmt(sa['best'], m)} ({sa['seconds']} s)" if sa else "n/a",
+            fmt(q["best_raw"], m),
+            f"{sa['feasible_pct']}% / {q['feasible_pct']}%" if sa else f"n/a / {q['feasible_pct']}%",
+            f"{sa['hit_best_pct']}% / {q['hit_best_pct']}%" if sa else f"n/a / {q['hit_best_pct']}%"))
+    return "\n".join(rows) + "\n"
+
+
 def jobs():
     out = ["| Run | Use case | IBM job id |", "|---|---|---|"]
     for size in ("small", "medium", "large"):
