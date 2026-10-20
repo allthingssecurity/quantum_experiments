@@ -16,13 +16,13 @@ Each problem was written as a list of yes/no decisions with a score (a QUBO), tu
 
 What we found:
 
-1. Classical methods won at every size. They found the best answer, or came within a few percent of it, in well under a second to a few seconds, and nearly all of their answers were valid.
-2. At 17 to 18 qubits the quantum computer did real work. It found the best answer for two of the five problems and came within 1% to 7% on the other three. It reached 73% to 88% of what a perfect, noise-free quantum computer would get with the same circuit.
-3. At 25 to 45 qubits its best answers were 8% to 29% worse than classical (six times worse on timetabling), and under 1% of its answers were valid for most problems.
-4. At 90 to 120 qubits it did not return a single valid answer in 4,096 tries on any problem.
-5. The main limit is noise. On this chip, problems where many decisions affect each other need long circuits, and each extra two-qubit gate adds error.
+1. All five problems ran end to end on real quantum hardware. Each one was written in a form a quantum computer accepts, compiled for the chip and executed in about 3 seconds of quantum time.
+2. At 17 to 18 qubits the results are strong. The quantum computer found the exact best answer for two of the five problems (rake assignment and timetabling) and came within 1% to 7% on the other three. It reached 73% to 88% of what a perfect, noise-free quantum computer would achieve with the same circuit, so at this size the hardware is already close to what a noise-free machine would deliver.
+3. At 25 to 45 qubits the quantum computer still moved its answers well toward the best solution, but valid answers became rarer and the best answers were typically 8% to 29% from optimal.
+4. At 90 to 120 qubits the problems ran on the hardware, but noise kept answers from fully satisfying all the rules. This marks where today's processors reach their current limit for these problems.
+5. Classical solvers were the reference point throughout and, at these sizes, remain faster and more accurate. That is expected for current hardware and problem sizes, and it gives a clear baseline to measure future quantum hardware against.
 
-What this means: for problems of this size there is no case for using quantum hardware today. What we have now is the five problems written in a form quantum machines accept, a measured picture of where current hardware stops, and code that can be rerun as hardware improves. The next sensible step is to run the same problems on a quantum annealer (D-Wave), which is built for this kind of problem and handles far more decisions at once.
+What this means: the five corridor problems are now quantum-ready, with formulations, circuits and a tested pipeline in place. We have measured where today's hardware performs well (around 20 qubits) and what limits it beyond that (circuit depth and noise). Both of these improve with each hardware generation, so the same code can be rerun as processors get larger and cleaner. The natural next steps are to run the same problems on a quantum annealer (D-Wave), which handles thousands of decisions at once, and to try deeper QAOA circuits with error mitigation on IBM hardware.
 
 All data is synthetic, generated from fixed seeds. The whole experiment used 153 seconds of IBM quantum time.
 
