@@ -78,24 +78,168 @@ The congestion term links every rail shipment to every other one, so this proble
 
 Sizes run: 6 shipments (18 qubits), 12 shipments (36 qubits), 30 shipments (90 qubits).
 
-## How a problem becomes a quantum circuit
+## How a problem gets solved, step by step
 
-There are three steps, and all of them are in `usecases.py` and `qaoa_suite.py`.
+Every problem in this report goes through the same pipeline. The quantum computer only does one step of it. Everything before and after runs on an ordinary computer.
 
-Step 1, the QUBO. Every problem ends up as numbers of two kinds: a number for each switch (how good or bad it is to turn that switch on) and a number for each pair of switches (how good or bad it is to have both on). Rules are already folded in as penalty numbers.
+```mermaid
+flowchart TD
+    A["Business problem<br/>e.g. which parks to fund"] --> B["Yes/no switches + score<br/>(QUBO, written in Python)"]
+    B --> C["Switches become qubits<br/>(weights for single qubits and pairs)"]
+    C --> D["QAOA circuit<br/>H, then RZZ + RZ (cost), then RX (mix)"]
+    D --> E["Tune the two circuit settings<br/>on a noise-free simulator (laptop)"]
+    E --> F["Compile for the chip<br/>(map to real qubits, add SWAPs)"]
+    F --> G["Run on IBM hardware<br/>4,096 shots, about 3 s of quantum time"]
+    G --> H["4,096 candidate answers<br/>(bit strings)"]
+    H --> I["Score each answer, check the rules,<br/>keep the best valid one"]
+    I --> J["Compare with exact classical solver<br/>and classical sampler"]
+```
 
-Step 2, from switches to qubits. Each switch becomes one qubit. A switch that is 0 or 1 is rewritten in terms of the qubit's spin, which is +1 or -1. After that rewrite the problem is a list of single-qubit weights and two-qubit weights. We scale everything so the largest weight is 1.
+The sections below walk through this with the smallest example, four parks, which also ran on real hardware.
 
-Step 3, the QAOA circuit. We used one layer of QAOA, which is the simplest version:
+### Step 1: the business problem
 
-1. Put every qubit into an equal mix of 0 and 1 (a Hadamard gate on each). At this point every possible answer is equally likely.
-2. Cost step: for every pair weight, apply an RZZ gate between those two qubits, and for every single weight apply an RZ gate on that qubit. The rotation angle is the weight times a setting called gamma. This step marks good and bad answers by giving them different phases.
-3. Mixing step: apply an RX gate to every qubit, with an angle set by a second setting called beta. This makes the answers interfere, so phases that line up add together and the others partly cancel.
-4. Measure every qubit. Each measurement gives one full answer.
+A budget of 100 crore and four candidate parks:
 
-So the circuit has only two knobs, gamma and beta, and their values decide whether the circuit helps at all.
+| Park | Cost (crore) | Benefit score |
+|---|---|---|
+| A | 40 | 8 |
+| B | 30 | 5 |
+| C | 50 | 9 |
+| D | 20 | 4 |
 
-Why the circuits get long. The IBM chip only connects each qubit to two or three neighbours (a "heavy hex" layout). If two qubits that need an RZZ gate are not neighbours, the compiler has to move information across the chip with extra SWAP operations, and each SWAP costs three two-qubit gates. Densely connected problems pay for this heavily. That is why park funding at 17 qubits needed 524 two-qubit gates while timetabling at 18 qubits needed only 102. Two-qubit gates are where most of the errors come from, so this count is the best single predictor of how well a run will go.
+There are 2 x 2 x 2 x 2 = 16 possible funding choices. The best one that fits the budget is B + C + D: it costs exactly 100 and gives a benefit of 18. (A + C gives 17, and A + C + D would give 21 but costs 110.)
+
+### Step 2: switches and a score (the QUBO)
+
+Each park gets one switch: 1 means fund it, 0 means do not. The score has to be lowest for the best choice, so benefit counts as negative. The budget rule is added as a penalty on the leftover budget, which needs no extra switches for this small case. Multiplying everything out gives these numbers (printed by `make_figures.py`):
+
+| Term | Value |
+|---|---|
+| constant | 180 |
+| switch A on | -128 |
+| switch B on | -101 |
+| switch C on | -149 |
+| switch D on | -72 |
+| A and B both on | +48 |
+| A and C both on | +80 |
+| A and D both on | +32 |
+| B and C both on | +60 |
+| B and D both on | +24 |
+| C and D both on | +40 |
+
+Check for B + C + D: 180 - 101 - 149 - 72 + 60 + 24 + 40 = -18, which is minus the benefit of 18. Every pair of parks has a number because the budget links all of them. That detail matters later.
+
+The larger problems are built the same way with a small helper class. The two rule types used everywhere look like this (from `usecases.py`):
+
+```python
+def square(self, terms, target, weight):
+    """weight * (sum c_k x_k - target)^2  (x^2 = x for binaries)"""
+    self.const += weight * target ** 2
+    for a, c in terms:
+        self.L(a, weight * (c * c - 2 * target * c))
+    for (a, ca), (b, cb) in itertools.combinations(terms, 2):
+        self.Q(a, b, weight * 2 * ca * cb)
+
+def at_most_one(self, vs, weight):
+    for a, b in itertools.combinations(vs, 2):
+        self.Q(a, b, weight)
+```
+
+`square` is used for "exactly one option" and for the budget (with slack switches). `at_most_one` is used for "a truck takes at most one load" and similar rules. It only adds a penalty for each pair of switches that clash, which is much cheaper.
+
+### Step 3: from switches to qubits
+
+A qubit is measured as 0 or 1, just like a switch, but inside the circuit it is easier to work with spins of +1 and -1. The code rewrites each switch x as (1 - z) / 2, where z is the spin, and collects the result into one weight per qubit and one weight per pair, scaled so the largest is 1 (from `qaoa_suite.py`):
+
+```python
+def ising(p):
+    h = -p["lin"] / 2
+    J = {}
+    for (i, j), c in p["quad"].items():
+        h[i] -= c / 4
+        h[j] -= c / 4
+        J[(i, j)] = c / 4
+    scale = max(np.abs(h).max(), max((abs(v) for v in J.values()), default=0))
+    return h / scale, {k: v / scale for k, v in J.items()}, scale
+```
+
+### Step 4: the QAOA circuit
+
+The circuit is built directly from those weights:
+
+```python
+def qaoa_circuit(p, reps=1):
+    n = p["n"]
+    h, J, _ = ising(p)
+    betas, gammas = ParameterVector("b", reps), ParameterVector("g", reps)
+    qc = QuantumCircuit(n)
+    qc.h(range(n))                                    # every answer equally likely
+    for layer in range(reps):
+        for (i, j), c in J.items():
+            qc.rzz(2 * gammas[layer] * c, i, j)       # pair weights
+        for i in range(n):
+            if abs(h[i]) > 1e-12:
+                qc.rz(2 * gammas[layer] * h[i], i)    # single weights
+        qc.rx(2 * betas[layer], range(n))             # mixing
+    qc.measure_all()
+    return qc, list(betas) + list(gammas)
+```
+
+Here is the four-park circuit with two layers, as it ran on the hardware. Each wire is one park.
+
+![Four-park QAOA circuit](figures/circuit_parks4.png)
+
+Reading it from left to right:
+
+1. H on every wire puts each park into an equal mix of "fund" and "do not fund", so all 16 choices start out equally likely.
+2. Cost block. The ZZ boxes, one for each pair of parks, apply the pair weights from step 2. The RZ boxes apply the single-park weights. Together they give each of the 16 choices a phase that depends on its score. The number in each box is the weight; γ is the first circuit setting.
+3. Mix block. RX on every wire, set by β (the second setting), lets the 16 choices interfere. Choices whose phases line up get more likely and the others get less likely.
+4. The cost and mix blocks repeat once more (layer 2), then every wire is measured. One measurement gives one funding choice.
+
+For comparison, here is the three-truck, three-load problem. It has nine switches (truck i takes load j), but only switches that clash are linked: the same truck or the same load.
+
+![Three-truck QAOA circuit](figures/circuit_trucks3.png)
+
+This is the difference between the two kinds of problem in this report. Park funding and multimodal routing are dense: every switch is linked to every other. Trucks, rakes and timetabling are sparse: each switch is linked to only a few others. Dense problems need many more ZZ gates.
+
+### Step 5: tuning the two settings
+
+The circuit has two settings per layer, γ and β, and the result depends heavily on them. For problems up to 20 qubits we find good values on a laptop by simulating the circuit without noise and adjusting γ and β until the average score is as low as possible. This step is free and takes under a second for the small problems. It also tells us what a perfect quantum computer would return, which we use as a reference.
+
+For larger problems the circuit is too big to simulate, so we reuse the settings found for the small version of the same problem.
+
+### Step 6: compiling for the chip
+
+The IBM chip connects each qubit to only two or three neighbours. The compiler places the circuit's qubits on the chip and, whenever a ZZ gate needs two qubits that are not neighbours, inserts SWAP operations to bring them together. Each SWAP costs three two-qubit gates. The four-park circuit has 12 ZZ gates on paper but became 42 two-qubit gates (circuit depth 126) on `ibm_marrakesh`, because every park is linked to every other.
+
+### Step 7: running on the hardware
+
+The compiled circuit, with the tuned settings filled in, is sent to IBM and run 4,096 times:
+
+```python
+sampler = SamplerV2(mode=backend)
+job = sampler.run([(compiled_circuit, settings)], shots=4096)
+counts = job.result()[0].data.meas.get_counts()     # {"1110": 925, "1011": 804, ...}
+```
+
+Each key in `counts` is one funding choice, read right to left (so "1110" is A=0, B=1, C=1, D=1, which is B + C + D), and the value is how many of the 4,096 shots gave it. This is what came back from `ibm_marrakesh` (job `dbb144hgv2cc73e7jld0`):
+
+![Four-park results on IBM hardware](figures/parks4_hardware_histogram.png)
+
+The most common answer was B + C + D, the true best, at 22.6% of shots. A random guess would be right 6.25% of the time. The grey bars show what a perfect, noise-free machine would return with the same circuit. The real hardware follows it closely, with a little probability leaking into the poorer choices on the right, which is what noise does. The next most common answers are A + B + D (benefit 17, within budget) and A + C + D (over budget, but its high benefit makes it look attractive to the circuit).
+
+### Step 8: reading off the answer and checking it
+
+The 4,096 answers are scored on the laptop. Any that break a rule are set aside, and the best valid one is the quantum computer's answer. That answer is then compared with the exact classical solver and the classical sampler on the same QUBO. Those comparisons are the result tables later in this report.
+
+### Circuit size and results
+
+The pattern across the 14 hardware runs of the five problems is easy to see when the number of two-qubit gates after compiling is plotted against the share of quantum answers that break no rule:
+
+![Two-qubit gates against valid answers](figures/gates_vs_valid_answers.png)
+
+Up to a few hundred two-qubit gates, a useful share of the answers is valid. Past about a thousand, almost none are. Two things push a problem to the right on this chart: more switches, and denser links between them. That is why park funding at 25 qubits still gave a third valid answers (its budget rule is easy to satisfy by chance), while multimodal routing at 36 qubits gave almost none.
 
 ## How we ran it
 
@@ -293,4 +437,5 @@ Files:
 - `run_ibm.py`: the 4-park and 3-truck warm-up examples.
 - `problems.py`, `run.py`: the larger D-Wave versions (simulator tested; QPU run needs a D-Wave token).
 - `run_amplify.py`: the Fixstars Amplify AE comparison.
+- `make_figures.py`: the circuit diagrams and charts in `figures/`.
 - `results/`: raw output of every run as JSON.

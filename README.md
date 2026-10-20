@@ -28,7 +28,7 @@ All data is synthetic, generated from fixed seeds. The whole experiment used 153
 
 ## More detail
 
-The full write-up is in [REPORT.md](REPORT.md). It covers each use case, how a problem becomes a circuit, how the runs were done, all result tables, a mistake we made along the way and how we caught it, and the IBM job ids for every run.
+The full write-up is in [REPORT.md](REPORT.md). It covers each use case, a step-by-step walk-through of how a problem becomes a circuit (with diagrams, code and real hardware output), how the runs were done, all result tables, a mistake we made along the way and how we caught it, and the IBM job ids for every run.
 
 ## Running it yourself
 
